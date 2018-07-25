@@ -8,6 +8,7 @@ from pprint import pprint
 
 import client
 from config import configuration
+from client import SmarketsClient
 
 fileConfig('logging.config', disable_existing_loggers=False)
 
@@ -16,7 +17,7 @@ log = logging.getLogger(__name__)
 FIXED_QUANTITY = 1000 # 10p
 
 class ExampleBot(threading.Thread):
-    def __init__(self, smk_client, markets):
+    def __init__(self, smk_client: SmarketsClient, markets):
         self.connection = sqlite3.connect(configuration["misc"]["ticker_plant_path"], check_same_thread=False)
         self.client = smk_client
         self.markets = markets
@@ -50,12 +51,10 @@ class ExampleBot(threading.Thread):
 
 
     def run(self):
-        # 5. TODO fetch the contracts
-        # contracts = ...
+        contracts = self.client.get_related_contracts(self.markets)
         while True:
             loop_start = datetime.datetime.utcnow()
-            # 6. TODO fetch the positions
-            # positions = ...
+            positions = self.client.get_orders(states=['created', 'partial', 'filled'])
 
             self.strategy(contracts, positions)
 

@@ -20,7 +20,7 @@ class SmarketsClient:
         self.auth_token = None
 
     def _auth_headers(self):
-        return {'Authorization': 'Session-Token ' + self.auth_token}
+        return {'Authorization': 'Session-Token ' + str(self.auth_token)}
 
     def init_session(self):
         log.info('initiating session')

@@ -3,12 +3,12 @@ from logging.config import fileConfig
 from pprint import pprint
 
 import client
-from utils import LiveQuotePlotter, QuoteFetcher
+from utils import QuoteFetcher
 
 fileConfig('logging.config', disable_existing_loggers=False)
 
 # instantiate client: single instance per session
-# copy the template from configuration_template.toml and fill it with
+# copy the template from configuration.toml and fill it with
 # your credentials!
 client = client.SmarketsClient()
 
